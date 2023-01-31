@@ -1,12 +1,11 @@
 const express = require("express");
-const { default: mongoose } = require("mongoose");
 
-// const mongo = require("mongodb");
+const connectMongo = require("./utils/connection");
 
 const app = express();
 
-const MongoDBURL = "localhost:27017";
+const MongoDBURL = "mongodb://localhost:27017/ZenKanban";
 
-mongodb: await mongoose.connect(MongoDBURL);
+connectMongo();
 
 app.listen(7000);
