@@ -1,5 +1,7 @@
 const { Router } = require("express");
 
+const taskRouter = require("./task.js");
+
 const router = Router();
 
 router.get("/test", (req, res, next) => {
@@ -7,5 +9,7 @@ router.get("/test", (req, res, next) => {
 });
 
 // Path will be "/api/test"
+
+router.use("/task", taskRouter);
 
 module.exports = router;
