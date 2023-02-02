@@ -22,6 +22,8 @@ app.get("/zen", (req, res, next) => {
 
   res.status(200).send("Success!"); // refer HTTP status codes
   // responses are usually sent in the last middleware, logically also thats sound
+
+  // All Callback functions can be sent, a subset of them are middlewares, a subset of those are controlles. Controlls are those middlewares that send a response
 });
 
 connectMongo();
