@@ -16,16 +16,8 @@ const taskSchema = new mongoose.Schema({
   progress: {},
 
   tags: {
-    type: String,
-    enum: [
-      "EduCare",
-      "ClientAcq",
-      "WebDev",
-      "HR",
-      "DigitalMarketing",
-      "Archived",
-      "Default",
-    ],
+    type: Array,
+
     default: "Default",
   },
 

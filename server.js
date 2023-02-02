@@ -5,6 +5,11 @@ const express = require("express");
 const connectMongo = require("./utils/connection");
 
 const app = express();
+
+app.use(express.json()); // converts the body(which may have various differnt formats and maybe URL encoded) into a proper json object from different formats
+
+app.use(express.urlencoded());
+
 //////////////////// app.get() below is for educational purposes only /////////////
 app.get("/zen", (req, res, next) => {
   // imp information from the req object is as follows

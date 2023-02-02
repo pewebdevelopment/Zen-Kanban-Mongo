@@ -7,4 +7,6 @@ const router = Router();
 
 router.get("/", taskControllers.testFn);
 
+router.post("/", taskControllers.crerateTask);
+
 module.exports = router;
