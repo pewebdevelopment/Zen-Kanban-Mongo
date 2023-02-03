@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+mongoose.set("strictQuery", true);
+
 const taskSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -29,20 +31,20 @@ const taskSchema = new mongoose.Schema({
   },
 
   updatedAt: {
-    type: Array[{ Date }],
+    type: [{ Date }],
     default: Date.now,
     unique: true,
     required: true,
   },
 
   dueAt: {
-    type: Array[{ Date }],
+    type: [{ Date }],
     unique: true,
     required: false,
   },
 
   comments: {
-    type: Array[{ Object }],
+    type: [{ Object }],
     required: false,
   },
 
