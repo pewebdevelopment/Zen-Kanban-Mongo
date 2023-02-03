@@ -16,11 +16,16 @@ function createTask(req, res, next) {
     // in catch we handle those erros
     // in try we throw the custom erros that come when trying something
     if (!taskName || !dueDate) {
-      throw err; // we throw a new error here
+      const error = { status: 500, msg: "somethign went wrong" };
+      // this is not recommended, its better to put the error object directly
+      throw { status: 400, msg: "Required fields should not be empty" }; // we throw a new error here
     }
   } catch (err) {
     console.log("500 Error:", err);
-    res.status(500).send("Something went wrong");
+    res.status(err.status || 500).send(err.msg || "Something went wrong");
+
+    // res.status(err.status ? err.status : 500).send("Something went wrong"); // this is just like the above
+
     // HTTP err status code is 500. This is for the user
     // Last lie should usually be response
   }
