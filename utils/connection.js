@@ -1,6 +1,10 @@
-const mongoose = require("mongoose");
+const { default: mongoose } = require("mongoose");
 
-const MongoDBURL = "mongodb://localhost:27017/ZenKanban";
+let MongoDBRemoteURL = "";
+
+let MongoDBLocalURL = "mongodb://127.0.0.1:27017/ZenKanban";
+
+const MongoDBURL = MongoDBRemoteURL || MongoDBLocalURL;
 
 async function connectwithDB() {
   try {
