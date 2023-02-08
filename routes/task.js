@@ -3,10 +3,10 @@ const taskControllers = require("../controllers/task");
 
 const router = Router();
 
-router.get("/", taskControllers.testFn);
-
 router.post("/", taskControllers.createTask);
 
-router.get("/", taskControllers.getTask);
+// router.get("/", taskControllers.getTask);
+
+router.get("/", taskControllers.getAllTasks);
 
 module.exports = router;

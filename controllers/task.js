@@ -55,4 +55,19 @@ async function createTask(req, res, next) {
   }
 }
 
-module.exports = { testFn: testFn, createTask: createTask };
+async function getAllTasks(req, res, next) {
+  try {
+    const allTasks = await Tasks.find(); // for getting all data. We pass params in find() fn if we want to filter some data
+
+    res.status(200).send(task);
+  } catch (err) {
+    console.log("500 Error:", err);
+    res.status(err.status || 500).send(err.msg || "Something went wrong");
+  }
+}
+
+module.exports = {
+  testFn: testFn,
+  createTask: createTask,
+  getAllTasks: getAllTasks,
+};
