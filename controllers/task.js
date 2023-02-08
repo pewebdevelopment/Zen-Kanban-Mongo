@@ -16,7 +16,7 @@ async function createTask(req, res, next) {
 
     // checing for data
     // in catch we handle those erros
-    // in try we throw the custom erros that come when trying something
+    // in try we throw the custom erros that come when trying Something
     if (!taskName || !dueDate) {
       // const error = { status: 500, msg: "somethign went wrong" };
       // this is not recommended, its better to put the error object directly
@@ -75,27 +75,17 @@ async function updateTask(req, res, next) {
   } catch (err) {
     console.log("500 Error:", err);
     res.status(err.status || 500).send(err.msg || "Something went wrong");
-
-    // res.status(err.status ? err.status : 500).send("Something went wrong"); // this is just like the above
-
-    // HTTP err status code is 500. This is for the user
-    // Last lie should usually be response
   }
 }
 
 async function deleteTask(req, res, next) {
   try {
-    await Tasks.deleteById(req.params.taskID);
+    await Tasks.deleteOne({ _id: req.params.taskID });
 
-    res.status(200).send("Deleted Task witht he Task ID: ", req.params.taskID);
+    res.status(200).send(`Deleted Task with the Task ID: ${req.params.taskID}`);
   } catch (err) {
     console.log("500 Error:", err);
     res.status(err.status || 500).send(err.msg || "Something went wrong");
-
-    // res.status(err.status ? err.status : 500).send("Something went wrong"); // this is just like the above
-
-    // HTTP err status code is 500. This is for the user
-    // Last lie should usually be response
   }
 }
 
