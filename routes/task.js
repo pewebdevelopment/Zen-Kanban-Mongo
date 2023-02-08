@@ -9,4 +9,6 @@ router.post("/", taskControllers.createTask);
 
 router.get("/", taskControllers.getAllTasks);
 
+router.get("/filter", taskControllers.getFilteredTasks);
+
 module.exports = router;
