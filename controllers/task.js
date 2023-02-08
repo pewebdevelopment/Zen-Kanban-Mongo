@@ -66,8 +66,20 @@ async function getAllTasks(req, res, next) {
   }
 }
 
+async function getFilteredTasks(req, res, next) {
+  try {
+    const allTasks = await Tasks.find({}); // filtering tasks
+
+    res.status(200).send(allTasks);
+  } catch (err) {
+    console.log("500 Error:", err);
+    res.status(err.status || 500).send(err.msg || "Somethign went wrong");
+  }
+}
+
 module.exports = {
   testFn: testFn,
   createTask: createTask,
   getAllTasks: getAllTasks,
+  getFilteredTasks,
 };
