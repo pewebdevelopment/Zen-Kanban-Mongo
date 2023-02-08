@@ -7,6 +7,10 @@ router.post("/", taskControllers.createTask);
 
 // router.get("/", taskControllers.getTask);
 
+router.put("/", taskControllers.updateTask);
+
+router.delete("/", taskControllers.deleteTask);
+
 router.get("/", taskControllers.getAllTasks);
 
 router.get("/filter", taskControllers.getFilteredTasks);

@@ -63,7 +63,7 @@ async function updateTask(req, res, next) {
       throw { status: 400, msg: "Required fields should not be empty" }; // updating taskname, iconURL is optional for Update
     }
 
-    const task = await Person.updateOne(
+    const task = await Tasks.updateOne(
       { _id: req.params.taskID },
       {
         name: taskName,
@@ -72,6 +72,22 @@ async function updateTask(req, res, next) {
     );
 
     res.status(200).send(task);
+  } catch (err) {
+    console.log("500 Error:", err);
+    res.status(err.status || 500).send(err.msg || "Something went wrong");
+
+    // res.status(err.status ? err.status : 500).send("Something went wrong"); // this is just like the above
+
+    // HTTP err status code is 500. This is for the user
+    // Last lie should usually be response
+  }
+}
+
+async function deleteTask(req, res, next) {
+  try {
+    await Tasks.deleteById(req.params.taskID);
+
+    res.status(200).send("Deleted Task witht he Task ID: ", req.params.taskID);
   } catch (err) {
     console.log("500 Error:", err);
     res.status(err.status || 500).send(err.msg || "Something went wrong");
@@ -124,4 +140,6 @@ module.exports = {
   getAllTasks: getAllTasks,
   getFilteredTasks,
   getOneTask,
+  updateTask,
+  deleteTask,
 };
