@@ -55,6 +55,34 @@ async function createTask(req, res, next) {
   }
 }
 
+async function updateTask(req, res, next) {
+  try {
+    const { name: taskName, iconURL: iconURL } = req.body;
+
+    if (!taskName) {
+      throw { status: 400, msg: "Required fields should not be empty" }; // updating taskname, iconURL is optional for Update
+    }
+
+    const task = await Person.updateOne(
+      { _id: req.params.taskID },
+      {
+        name: taskName,
+        iconURL: iconURL,
+      }
+    );
+
+    res.status(200).send(task);
+  } catch (err) {
+    console.log("500 Error:", err);
+    res.status(err.status || 500).send(err.msg || "Something went wrong");
+
+    // res.status(err.status ? err.status : 500).send("Something went wrong"); // this is just like the above
+
+    // HTTP err status code is 500. This is for the user
+    // Last lie should usually be response
+  }
+}
+
 async function getAllTasks(req, res, next) {
   try {
     const allTasks = await Tasks.find(); // for getting all data. We pass params in find() fn if we want to filter some data
@@ -68,9 +96,22 @@ async function getAllTasks(req, res, next) {
 
 async function getFilteredTasks(req, res, next) {
   try {
-    const allTasks = await Tasks.find({}); // filtering tasks
+    const querriedTasks = await Tasks.find({ status: "Assigned" }); // filtering tasks
 
-    res.status(200).send(allTasks);
+    res.status(200).send(querriedTasks);
+  } catch (err) {
+    console.log("500 Error:", err);
+    res.status(err.status || 500).send(err.msg || "Somethign went wrong");
+  }
+}
+
+async function getOneTask(req, res, next) {
+  try {
+    // const theTask = await Tasks.findOne({ _id: req.params.taskID }); // getting one task, for finding one record
+    // const theTask = await Tasks.findOne({ name: req.params.taskID });
+    const theTask = await Tasks.findById(req.params.taskID);
+
+    res.status(200).send(theTask);
   } catch (err) {
     console.log("500 Error:", err);
     res.status(err.status || 500).send(err.msg || "Somethign went wrong");
@@ -82,4 +123,5 @@ module.exports = {
   createTask: createTask,
   getAllTasks: getAllTasks,
   getFilteredTasks,
+  getOneTask,
 };

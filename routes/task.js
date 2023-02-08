@@ -11,4 +11,6 @@ router.get("/", taskControllers.getAllTasks);
 
 router.get("/filter", taskControllers.getFilteredTasks);
 
+router.get("/:taskID", taskControllers.getOneTask);
+
 module.exports = router;
