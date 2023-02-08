@@ -7,4 +7,6 @@ router.get("/", taskControllers.testFn);
 
 router.post("/", taskControllers.createTask);
 
+router.get("/", taskControllers.getTask);
+
 module.exports = router;
